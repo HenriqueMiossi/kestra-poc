@@ -19,8 +19,17 @@ workspace:
   root: ~/code/symphony-workspaces
 hooks:
   after_create: |
-    if [ ! -d .git ]; then
-      git clone git@github.com:HenriqueMiossi/kestra-poc.git .
+    if [ -d .git ]; then
+      exit 0
+    fi
+
+    LOCAL_SOURCE_REPO="${LOCAL_SOURCE_REPO:-/home/henrique/Projects/zapizi/kestra-poc}"
+    REMOTE_SOURCE_REPO="${REMOTE_SOURCE_REPO:-https://github.com/HenriqueMiossi/kestra-poc.git}"
+
+    if [ -d "${LOCAL_SOURCE_REPO}/.git" ]; then
+      git clone "${LOCAL_SOURCE_REPO}" .
+    else
+      git clone "${REMOTE_SOURCE_REPO}" .
     fi
 
   before_remove: |
