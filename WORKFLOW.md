@@ -39,7 +39,7 @@ agent:
   max_turns: 20
 codex:
   command: codex --config shell_environment_policy.inherit=all --config model_reasoning_effort=xhigh --model gpt-5.3-codex app-server
-  approval_policy: never
+  approval_policy: on-request
   thread_sandbox: workspace-write
   turn_sandbox_policy:
     type: workspaceWrite
@@ -235,6 +235,7 @@ Use this only when completion is blocked by missing required tools or missing au
     - You may make temporary local proof edits to validate assumptions (for example: tweak a local build input for `make`, or simplify a test flow input/path) when this increases confidence.
     - Revert every temporary proof edit before commit/push.
     - Document these temporary proof steps and outcomes in the workpad `Validation`/`Notes` sections so reviewers can follow the evidence.
+    - Runtime validation may require Docker daemon access outside the workspace sandbox. Configure the Symphony runner with either `/var/run/docker.sock` mounted into the worker or a reachable `DOCKER_HOST`, and allow escalated command execution when the agent needs to talk to Docker.
     - If runtime-touching, validate the Docker Compose stack and record the relevant `docker compose` command/output summary before handoff.
 6.  Re-check all acceptance criteria and close any gaps.
 7.  Before every `git push` attempt, run the required validation for your scope and confirm it passes; if it fails, address issues and rerun until green, then commit and push changes.
