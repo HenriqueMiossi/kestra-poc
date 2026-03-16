@@ -1,7 +1,7 @@
 ---
 tracker:
   kind: linear
-  project_slug: "band-flow-symphony-3204c12689c6"
+  project_slug: "kestra-poc-symphony-79b5685b1344"
   active_states:
     - Todo
     - In Progress
