@@ -19,11 +19,10 @@ workspace:
   root: ~/code/symphony-workspaces
 hooks:
   after_create: |
-    if [ -f docker-compose.yml ] || [ -f compose.yaml ] || [ -f compose.yml ]; then
-      if command -v docker >/dev/null 2>&1; then
-        docker compose config >/dev/null
-      fi
+    if [ ! -d .git ]; then
+      git clone git@github.com:HenriqueMiossi/kestra-poc.git .
     fi
+
   before_remove: |
     true
 agent:
